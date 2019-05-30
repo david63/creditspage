@@ -1,7 +1,0 @@
-imports:
-    - { resource: phpbb_constants.yml }
-
-parameters:
-    cpconstants:
-        form_key: 'creditspage'
-        creditspage_version: '2.1.0 RC1'

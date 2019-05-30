@@ -16,13 +16,13 @@ namespace david63\creditspage\controller;
 */
 interface main_interface
 {
-    /**
-     * Display the Credits page
-     *
-     * @param $name
-     *
-     * @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
-     * @access public
-     */
+	/**
+	* Display the Credits page
+	*
+	* @param $name
+	*
+	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+	* @access public
+	*/
 	public function creditoutput();
 }

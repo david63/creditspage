@@ -62,4 +62,3 @@ class version_2_1_0 extends migration
 		);
 	}
 }
-

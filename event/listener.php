@@ -40,6 +40,9 @@ class listener implements EventSubscriberInterface
 	/** @var \david63\creditspage\core\creditspage */
 	protected $creditspage;
 
+	/** @var string custom constants */
+	protected $cpconstants;
+
 	/**
 	* Constructor for listener
 	*
@@ -48,17 +51,19 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\user                			$user			User object
 	* @param \phpbb\controller\helper				$helper			Helper object
 	* @param \david63\creditspage\core\creditspage	creditspage		Methods for the extension
+	* @param array	                            	$constants		phpBB constants
 	*
 	* @return \david63\creditspage\event\listener
 	* @access public
 	*/
-	public function __construct(auth $auth, template $template, user $user, helper $helper, creditspage $creditspage)
+	public function __construct(auth $auth, template $template, user $user, helper $helper, creditspage $creditspage, $cpconstants)
 	{
 		$this->auth			= $auth;
 		$this->template		= $template;
 		$this->user			= $user;
 		$this->helper		= $helper;
 		$this->creditspage	= $creditspage;
+		$this->constants	= $cpconstants;
 	}
 
 	/**
@@ -94,8 +99,8 @@ class listener implements EventSubscriberInterface
 		foreach ($enabled_extension_meta_data as $name => $block_vars)
 		{
 			// Let's decide who can see what - Founders see everything
-			if ($this->user->data['user_type'] == USER_FOUNDER || ($this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] == 4 || $ext_data[$block_vars['META_NAME']] == 5 || $ext_data[$block_vars['META_NAME']] == 6 || $ext_data[$block_vars['META_NAME']] == 7) || ($this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] == 2 || $ext_data[$block_vars['META_NAME']] == 3 || $ext_data[$block_vars['META_NAME']] == 6 || $ext_data[$block_vars['META_NAME']] == 7)) || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] == 1 || $ext_data[$block_vars['META_NAME']] == 3 || $ext_data[$block_vars['META_NAME']] == 7))))
- 			{
+			if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpadmin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_modad_min']) || ($this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpmod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == 7)) || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpuser'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_modad_min']))))
+			{
 				$this->template->assign_block_vars('credit_row', array(
 					'DESCRIPTION'	=> $block_vars['META_DESCRIPTION'],
 					'DISPLAY_NAME'	=> $block_vars['META_DISPLAY_NAME'],

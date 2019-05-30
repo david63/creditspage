@@ -52,7 +52,7 @@ class admin_controller implements admin_interface
 	/** @var string Custom form action */
 	protected $u_action;
 
-    /**
+	/**
 	* Constructor for admin controller
 	*
 	* @param \phpbb\request\request					$request		Request object
@@ -81,7 +81,7 @@ class admin_controller implements admin_interface
 		$this->tables		= $tables;
 	}
 
-    /**
+	/**
 	* Display the options a user can configure for this extension
 	*
 	* @return null
@@ -160,7 +160,7 @@ class admin_controller implements admin_interface
 		}
 	}
 
-    /**
+	/**
 	* Set the options a user can configure
 	*
 	* @return null

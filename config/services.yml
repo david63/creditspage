@@ -1,5 +1,5 @@
 imports:
-    - { resource: imports.yml }
+    - { resource: phpbb_tables.yml }
 
 services:
     david63.creditspage.listener:
@@ -10,6 +10,7 @@ services:
             - '@user'
             - '@controller.helper'
             - '@david63.creditspage.core.creditspage'
+            - '%cpconstants%'
         tags:
             - { name: event.listener }
 
@@ -39,3 +40,19 @@ services:
             - '@dbal.conn'
             - '@ext.manager'
             - '%tables%'
+
+parameters:
+    cpconstants:
+        form_key: 'creditspage'
+
+        user_founder: 3
+
+        cpuser: 1
+        cpmod: 2
+        cpuser_mod: 3
+        cpadmin: 4
+        cpuser_admin: 5
+        cpmod_admin: 6
+        cpuser_modad_min: 7
+
+        creditspage_version: '2.1.0 RC1'
