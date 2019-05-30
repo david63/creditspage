@@ -8,6 +8,9 @@ Adds a link to a credits page showing extension credits.
 [![Latest Unstable Version](https://poser.pugx.org/david63/creditspage/v/unstable)](https://packagist.org/packages/david63/creditspage)
 [![Total Downloads](https://poser.pugx.org/david63/creditspage/downloads)](https://packagist.org/packages/david63/creditspage)
 
+![Screenshot](credit_page_user.jpg)
+![Screenshot](credit_page_admin.jpg)
+
 ## Minimum Requirements
 * phpBB 3.2.0
 * PHP 5.4
