@@ -9,7 +9,7 @@ Adds a link to a credits page showing extension credits.
 [![Total Downloads](https://poser.pugx.org/david63/creditspage/downloads)](https://packagist.org/packages/david63/creditspage)
 
 ![Screenshot](credit_page_user.jpg)
-![Screenshot](credit_page_admin.jpg)
+![Screenshot](credits_page_admin.jpg)
 
 ## Minimum Requirements
 * phpBB 3.2.0
