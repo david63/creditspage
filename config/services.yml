@@ -1,0 +1,41 @@
+imports:
+    - { resource: imports.yml }
+
+services:
+    david63.creditspage.listener:
+        class: david63\creditspage\event\listener
+        arguments:
+            - '@auth'
+            - '@template'
+            - '@user'
+            - '@controller.helper'
+            - '@david63.creditspage.core.creditspage'
+        tags:
+            - { name: event.listener }
+
+    david63.creditspage.admin.controller:
+        class: david63\creditspage\controller\admin_controller
+        arguments:
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@language'
+            - '@log'
+            - '@dbal.conn'
+            - '@david63.creditspage.core.creditspage'
+            - '%cpconstants%'
+            - '%tables%'
+
+    david63.creditspage.main.controller:
+        class: david63\creditspage\controller\main_controller
+        arguments:
+            - '@controller.helper'
+            - '@template'
+            - '@language'
+
+    david63.creditspage.core.creditspage:
+        class: david63\creditspage\core\creditspage
+        arguments:
+            - '@dbal.conn'
+            - '@ext.manager'
+            - '%tables%'

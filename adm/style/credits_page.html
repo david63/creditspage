@@ -1,0 +1,91 @@
+{% INCLUDE '@david63_creditspage/head_panel.html' %}
+
+<form id="creditspage" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('CREDIT_PAGE_OPTIONS') }}</legend>
+
+		<div class="table">
+			<div class="table-header">
+				<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
+				<div class="table-header-cell">{{ lang('USER') }}</div>
+				<div class="table-header-cell">{{ lang('MODERATOR') }}</div>
+				<div class="table-header-cell-right">{{ lang('ADMINISTRATOR') }}</div>
+			</div>
+
+			<div class="table-body">
+				{% for row in credit_row %}
+					{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
+						<div class="table-body-cell-bold pointer showkey" key="{{ row.META_KEY }}">{{ row.DISPLAY_NAME }}</div>
+
+						<div class="table-body-cell-centre">
+							<div class="checkbox">
+								<input type="checkbox">
+								<input type="checkbox" name="ext/{{ row.NAME }}/1" {% if row.OPT_SET == 1 or row.OPT_SET == 3 or row.OPT_SET == 7 %} checked {% endif %}/>
+								<label data-on="✔" data-off="✘"></label>
+							</div>
+						</div>
+
+						<div class="table-body-cell-centre">
+							<div class="checkbox">
+								<input type="checkbox">
+								<input type="checkbox" name="ext/{{ row.NAME }}/2" {% if row.OPT_SET == 2 or row.OPT_SET == 3 or row.OPT_SET == 6 or row.OPT_SET == 7 %} checked {% endif %}/>
+								<label data-on="✔" data-off="✘"></label>
+							</div>
+						</div>
+
+						<div class="table-body-cell-centre">
+							<div class="checkbox">
+								<input type="checkbox">
+								<input type="checkbox" name="ext/{{ row.NAME }}/4" {% if row.OPT_SET == 4 or row.OPT_SET == 5 or row.OPT_SET == 6 or row.OPT_SET == 7 %} checked {% endif %}/>
+					   			<label data-on="✔" data-off="✘"></label>
+				   			</div>
+						</div>
+					</div>
+
+					<div class="table-row-span" id="{{ row.META_KEY }}">
+						<div class="table-row11">
+							<div class="table-body-cell-narrow">{{ lang('DESCRIPTION') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide">{{ row.DESCRIPTION }}</div>
+						</div>
+
+						<div class="table-row11">
+							<div class="table-body-cell-narrow">{{ lang('VERSION') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide">{{ row.VERSION }}</div>
+						</div>
+
+						<div class="table-row11">
+							<div class="table-body-cell-narrow">{{ lang('AUTHORS') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide">
+								{% for author in row.author %}
+									{{ lang('AUTHOR_NAME') }}&nbsp;{{ lang('COLON') }}&nbsp;<strong>{{ author.AUTHOR }}</strong><br />
+									{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br />
+									{% if author.EMAIL %}
+										{{ lang('AUTHOR_EMAIL') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="mailto:{{ author.EMAIL }}">{{ author.EMAIL }}</a><br />
+									{% endif %}
+									{% if author.HOMEPAGE %}
+										{{ lang('AUTHOR_HOMEPAGE') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="{{ author.HOMEPAGE }}">{{ author.HOMEPAGE }}</a>
+									{% endif %}
+									{% if not loop.last %}
+										<hr>
+									{% endif %}
+								{% endfor %}
+				   			</div>
+						</div>
+					</div>
+				{% endfor %}
+   			</div>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_SUBMIT_CHANGES') }}</legend>
+		<p class="submit-buttons">
+			<input class="adm-button" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+			<input class="adm-button" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		</p>
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDEJS '@david63_creditspage/creditspage.js' %}
+{% INCLUDE '@david63_creditspage/donate.html' %}

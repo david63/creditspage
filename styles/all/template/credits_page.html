@@ -1,0 +1,41 @@
+{% include 'overall_header.html' %}
+{% INCLUDECSS '@david63_creditspage/forms.css' %}
+
+<h2 class="solo">{PAGE_TITLE}</h2>
+
+<div class="table">
+	<div class="table-header">
+		<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
+		<div class="table-header-cell">{{ lang('DESCRIPTION') }}</div>
+		<div class="table-header-cell-narrow">{{ lang('VERSION') }}</div>
+		<div class="table-header-cell-right">{{ lang('AUTHORS') }}</div>
+	</div>
+
+	<div class="table-body">
+		{% for row in credit_row %}
+			{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
+				<div class="table-body-cell-bold">{{ row.DISPLAY_NAME }}</div>
+				<div class="table-body-cell">{{ row.DESCRIPTION }}</div>
+				<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
+				<div class="table-body-cell">
+					{% for author in row.author %}
+						{{ lang('AUTHOR_NAME') }}&nbsp;{{ lang('COLON') }}&nbsp;<strong>{{ author.AUTHOR }}</strong><br />
+						{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br />
+						{% if author.EMAIL %}
+							{{ lang('AUTHOR_EMAIL') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="mailto:{{ author.EMAIL }}">{{ author.EMAIL }}</a><br />
+						{% endif %}
+						{% if author.HOMEPAGE %}
+							{{ lang('AUTHOR_HOMEPAGE') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="{{ author.HOMEPAGE }}">{{ author.HOMEPAGE }}</a>
+						{% endif %}
+						{% if not loop.last %}
+							<hr>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<br />
+
+{% include 'overall_footer.html' %}
