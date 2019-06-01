@@ -1,6 +1,6 @@
 {% INCLUDE '@david63_creditspage/head_panel.html' %}
 
-<form id="creditspage" method="post" action="{{ U_ACTION }}">
+<form id="creditspage_settings" method="post" action="{{ U_ACTION }}">
 	<fieldset>
 		<legend>{{ lang('CREDIT_PAGE_OPTIONS') }}</legend>
 
@@ -88,4 +88,4 @@
 </form>
 
 {% INCLUDEJS '@david63_creditspage/creditspage.js' %}
-{% INCLUDE '@david63_creditspage/donate.html' %}
+{% INCLUDE 'overall_footer.html' %}

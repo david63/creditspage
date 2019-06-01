@@ -37,7 +37,9 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'CREDITS_PAGE'			=> 'Extension credits',
-	'CREDITS_PAGE_LOG'		=> '<strong>Credits Page settings updated</strong>',
-	'CREDITS_PAGE_MANAGE'	=> 'Manage credits page',
+	'CREDITS_PAGE'				=> 'Extension credits',
+	'CREDITS_PAGE_MANAGE'		=> 'Credits page manage',
+	'CREDITS_PAGE_MANAGE_LOG'	=> '<strong>Credits Page settings updated</strong>',
+	'CREDITS_PAGE_OPTIONS_LOG'	=> '<strong>Credits Page options updated</strong>',
+	'CREDITS_PAGE_SETTINGS'		=> 'Credits page options',
 ));

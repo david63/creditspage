@@ -5,6 +5,7 @@ services:
     david63.creditspage.listener:
         class: david63\creditspage\event\listener
         arguments:
+            - '@config'
             - '@auth'
             - '@template'
             - '@user'
@@ -17,6 +18,7 @@ services:
     david63.creditspage.admin.controller:
         class: david63\creditspage\controller\admin_controller
         arguments:
+            - '@config'
             - '@request'
             - '@template'
             - '@user'
@@ -53,6 +55,6 @@ parameters:
         cpadmin: 4
         cpuser_admin: 5
         cpmod_admin: 6
-        cpuser_modad_min: 7
+        cpuser_mod_admin: 7
 
         creditspage_version: '2.1.0 RC1'

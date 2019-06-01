@@ -17,6 +17,7 @@ class acp_creditspage_info
 			'filename'	=> '\david63\creditspage\acp\acp_creditspage_module',
 			'title'		=> 'CREDITS_PAGE',
 			'modes'		=> array(
+				'settings'	=> array('title' => 'CREDITS_PAGE_SETTINGS', 'auth' => 'ext_david63/creditspage && acl_a_board', 'cat' => array('CREDITS_PAGE')),
 				'manage'	=> array('title' => 'CREDITS_PAGE_MANAGE', 'auth' => 'ext_david63/creditspage && acl_a_board', 'cat' => array('CREDITS_PAGE')),
 			),
 		);

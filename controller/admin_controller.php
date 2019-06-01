@@ -9,6 +9,7 @@
 
 namespace david63\creditspage\controller;
 
+use phpbb\config\config;
 use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
@@ -22,6 +23,9 @@ use david63\creditspage\core\creditspage;
 */
 class admin_controller implements admin_interface
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
 	/** @var \phpbb\request\request */
 	protected $request;
 
@@ -55,6 +59,7 @@ class admin_controller implements admin_interface
 	/**
 	* Constructor for admin controller
 	*
+	* @param \phpbb\config\config					$config			Config object
 	* @param \phpbb\request\request					$request		Request object
 	* @param \phpbb\template\template				$template		Template object
 	* @param \phpbb\user							$user			User object
@@ -68,8 +73,9 @@ class admin_controller implements admin_interface
 	* @return \david63\creditspage\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(request $request, template $template, user $user, language $language, log $log, driver_interface $db, creditspage $creditspage, $cpconstants, $tables)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, creditspage $creditspage, $cpconstants, $tables)
 	{
+		$this->config		= $config;
 		$this->request		= $request;
 		$this->template		= $template;
 		$this->user			= $user;
@@ -87,7 +93,7 @@ class admin_controller implements admin_interface
 	* @return null
 	* @access public
 	*/
-	public function display_options()
+	public function display_settings()
 	{
 		// Add the language files
 		$this->language->add_lang('acp_credits_page', 'david63/creditspage');
@@ -111,7 +117,7 @@ class admin_controller implements admin_interface
 			$this->set_options();
 
 			// Add option settings change action to the admin log
-			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'CREDITS_PAGE_LOG');
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'CREDITS_PAGE_OPTIONS_LOG');
 
 			// Option settings have been updated and logged
 			// Confirm this to the user and provide link back to previous page
@@ -170,6 +176,7 @@ class admin_controller implements admin_interface
 	{
 		$ext_vars	= $this->request->variable_names();
 		$ext_ary	= array();
+		$user_opts = $mod_opts = $admin_opts = 0;
 
 		// Need only the extension variables here
 		foreach ($ext_vars as $key => $data)
@@ -180,6 +187,10 @@ class admin_controller implements admin_interface
 				$ext_value	= substr($data, -1);
 				$ext_key 	= substr($data, 4);
 				$ext_key 	= substr($ext_key, 0, -2);
+
+				$user_opts	= ($ext_value == $this->constants['cpuser']) ? $this->constants['cpuser'] : 0;
+				$mod_opts 	= ($ext_value == $this->constants['cpmod']) ? $this->constants['cpmod'] : 0;
+				$admin_opts = ($ext_value == $this->constants['cpadmin']) ? $this->constants['cpadmin'] : 0;
 
 				// Combine the values
 				if (array_key_exists($ext_key, $ext_ary))
@@ -208,6 +219,77 @@ class admin_controller implements admin_interface
 
 			$this->db->sql_query($sql);
 		}
+
+		$this->config->set('cp_show_navbar', $user_opts + $mod_opts + $admin_opts);
+	}
+
+	/**
+	* Display the options a user can configure for this extension
+	*
+	* @return null
+	* @access public
+	*/
+	public function display_options()
+	{
+		// Add the language files
+		$this->language->add_lang('acp_credits_page', 'david63/creditspage');
+
+		// Create a form key for preventing CSRF attacks
+		add_form_key($this->constants['form_key']);
+
+		$back = false;
+
+		// Is the form being submitted?
+		if ($this->request->is_set_post('submit'))
+		{
+			// Is the submitted form is valid?
+			if (!check_form_key($this->constants['form_key']))
+			{
+				trigger_error($this->language->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			// If no errors, process the form data
+			// Set the options the user configured
+			$this->set_manage_options();
+
+			// Add option settings change action to the admin log
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'CREDITS_PAGE_MANAGE_LOG');
+
+			// Option settings have been updated and logged
+			// Confirm this to the user and provide link back to previous page
+			trigger_error($this->language->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
+		}
+
+		// Template vars for header panel
+		$this->template->assign_vars(array(
+			'HEAD_TITLE'		=> $this->language->lang('CREDITS_PAGE'),
+			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_MANAGE_EXPLAIN'),
+
+			'S_BACK'			=> $back,
+
+			'VERSION_NUMBER'	=> $this->constants['creditspage_version'],
+		));
+
+		$this->template->assign_vars(array(
+			'CP_EMAIL'		=> isset($this->config['cp_email']) ? $this->config['cp_email'] : '',
+			'CP_HOMEPAGE'	=> isset($this->config['cp_homepage']) ? $this->config['cp_homepage'] : '',
+			'CP_ROLE'		=> isset($this->config['cp_role']) ? $this->config['cp_role'] : '',
+
+			'U_ACTION'		=> $this->u_action,
+		));
+	}
+
+	/**
+	* Set the options a user can configure
+	*
+	* @return null
+	* @access protected
+	*/
+	protected function set_manage_options()
+	{
+		$this->config->set('cp_email', $this->request->variable('cp_email', 0));
+		$this->config->set('cp_homepage', $this->request->variable('cp_homepage', 1));
+		$this->config->set('cp_role', $this->request->variable('cp_role', 1));
 	}
 
 	/**

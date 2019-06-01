@@ -1,0 +1,48 @@
+{% INCLUDE '@david63_creditspage/head_panel.html' %}
+
+<form id="creditspage_manage" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('AUTHOR_ATTRIBUTES') }}</legend>
+
+		<dl>
+			<dt><label for="cp_role">{{ lang('CP_ROLE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_ROLE_EXPLAIN') }}</span></dt>
+			<dd>
+				<input type="radio" id="cp_role1" name="cp_role" value="1"{% if CP_ROLE %} checked="checked"{% endif %} />
+				<label class="set" for="cp_role1">{{ lang('YES') }}</label>
+				<input type="radio" id="cp_role0" name="cp_role" value="0"{% if not CP_ROLE %} checked="checked"{% endif %} />
+				<label class="unset" for="cp_role0">{{ lang('NO') }}</label>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="cp_email">{{ lang('CP_EMAIL') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_EMAIL_EXPLAIN') }}</span></dt>
+			<dd>
+				<input type="radio" id="cp_email1" name="cp_email" value="1"{% if CP_EMAIL %} checked="checked"{% endif %} />
+				<label class="set" for="cp_email1">{{ lang('YES') }}</label>
+				<input type="radio" id="cp_email0" name="cp_email" value="0"{% if not CP_EMAIL %} checked="checked"{% endif %} />
+				<label class="unset" for="cp_email0">{{ lang('NO') }}</label>
+			</dd>
+		</dl>
+
+		<dl>
+			<dt><label for="cp_homepage">{{ lang('CP_HOMEPAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_HOMEPAGE_EXPLAIN') }}</span></dt>
+			<dd>
+				<input type="radio" id="cp_homepage1" name="cp_homepage" value="1"{% if CP_HOMEPAGE %} checked="checked"{% endif %} />
+				<label class="set" for="cp_homepage1">{{ lang('YES') }}</label>
+				<input type="radio" id="cp_homepage0" name="cp_homepage" value="0"{% if not CP_HOMEPAGE %} checked="checked"{% endif %} />
+				<label class="unset" for="cp_homepage0">{{ lang('NO') }}</label>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_SUBMIT_CHANGES') }}</legend>
+		<p class="submit-buttons">
+			<input class="adm-button" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+			<input class="adm-button" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		</p>
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% INCLUDE '@david63_creditspage/donate.html' %}

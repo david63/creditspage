@@ -14,6 +14,7 @@ namespace david63\creditspage\event;
 */
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+use phpbb\config\config;
 use phpbb\auth\auth;
 use phpbb\template\template;
 use phpbb\user;
@@ -25,6 +26,9 @@ use david63\creditspage\core\creditspage;
 */
 class listener implements EventSubscriberInterface
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
@@ -46,6 +50,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor for listener
 	*
+	* @param \phpbb\config\config					$config			Config object
 	* @param \phpbb\auth\auth 						$auth			Auth object
 	* @param \phpbb\template\template				$template		Template object
 	* @param \phpbb\user                			$user			User object
@@ -56,8 +61,9 @@ class listener implements EventSubscriberInterface
 	* @return \david63\creditspage\event\listener
 	* @access public
 	*/
-	public function __construct(auth $auth, template $template, user $user, helper $helper, creditspage $creditspage, $cpconstants)
+	public function __construct(config $config, auth $auth, template $template, user $user, helper $helper, creditspage $creditspage, $cpconstants)
 	{
+		$this->config		= $config;
 		$this->auth			= $auth;
 		$this->template		= $template;
 		$this->user			= $user;
@@ -76,9 +82,19 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.page_footer'	=> 'page_footer',
-			'core.user_setup'	=> 'load_language_on_setup',
+			'core.page_footer'			=> 'page_footer',
+			'core.user_setup'			=> 'load_language_on_setup',
+			'core.page_header_after'	=> 'page_header',
 		);
+	}
+
+	public function page_header($event)
+	{
+		// Can we show the nav bar link?
+		if (($this->auth->acl_get('a_') && ($this->config['cp_show_navbar'] >= $this->constants['cpadmin'])) || ($this->auth->acl_get('m_') && ($this->config['cp_show_navbar'] == $this->constants['cpmod'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod'] || $this->config['cp_show_navbar'] == $this->constants['cpmod_admin'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod_admin'])) || ($this->auth->acl_get('u_') && ($this->config['cp_show_navbar'] == $this->constants['cpuser'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod_admin'])))
+		{
+			$this->template->assign_var('SHOW_CP_LINK', true);
+		}
 	}
 
 	/**
@@ -99,7 +115,7 @@ class listener implements EventSubscriberInterface
 		foreach ($enabled_extension_meta_data as $name => $block_vars)
 		{
 			// Let's decide who can see what - Founders see everything
-			if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpadmin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_modad_min']) || ($this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpmod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == 7)) || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpuser'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_modad_min']))))
+			if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpadmin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod_admin']) || ($this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpmod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == 7)) || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpuser'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod_admin']))))
 			{
 				$this->template->assign_block_vars('credit_row', array(
 					'DESCRIPTION'	=> $block_vars['META_DESCRIPTION'],
@@ -120,6 +136,11 @@ class listener implements EventSubscriberInterface
 		}
 
 		$this->template->assign_vars(array(
+			'CP_EMAIL'		=> $this->config['cp_email'],
+			'CP_HIDE_ALL'	=> $this->config['cp_hide_all'],
+			'CP_HOMEPAGE'	=> $this->config['cp_homepage'],
+			'CP_ROLE'		=> $this->config['cp_role'],
+
 			'U_CREDITS_PAGE' => $this->helper->route('david63_creditspage_creditoutput'),
 		));
 	}

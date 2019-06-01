@@ -37,11 +37,21 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'CREDITS_PAGE'			=> 'Extension Credits',
-	'CREDITS_PAGE_EXPLAIN'	=> 'Here you can select wihch user type can view each extension credit.',
-	'CREDIT_PAGE_OPTIONS'	=> 'Options',
+	'AUTHOR_ATTRIBUTES'				=> 'Author attributes',
 
-	'VERSION'				=> 'Version',
+	'CREDITS_PAGE'					=> 'Extension Credits Page',
+	'CREDITS_PAGE_EXPLAIN'			=> 'Here you can select wihch user type can view each extension credit.',
+	'CREDIT_PAGE_OPTIONS'			=> 'Options',
+	'CREDITS_PAGE_MANAGE_EXPLAIN'	=> 'Here you can select the options for the Extension Credits page.',
+
+	'CP_EMAIL'			   			=> 'Author email',
+	'CP_EMAIL_EXPLAIN'				=> 'Show the email address of the author - if present.',
+	'CP_HOMEPAGE'					=> 'Author homepage',
+	'CP_HOMEPAGE_EXPLAIN'			=> 'Show the homepage of the author - if present.',
+	'CP_ROLE'						=> 'Author role',
+	'CP_ROLE_EXPLAIN'				=> 'Show the role of the author - if present.',
+
+	'VERSION'						=> 'Version',
 ));
 
 // Donate

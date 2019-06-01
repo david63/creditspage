@@ -19,12 +19,14 @@
 				<div class="table-body-cell-narrow">{{ row.VERSION }}</div>
 				<div class="table-body-cell">
 					{% for author in row.author %}
-						{{ lang('AUTHOR_NAME') }}&nbsp;{{ lang('COLON') }}&nbsp;<strong>{{ author.AUTHOR }}</strong><br />
-						{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br />
-						{% if author.EMAIL %}
+						<strong>{{ author.AUTHOR }}</strong><br />
+						{% if CP_ROLE %}
+							{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br />
+						{% endif %}
+						{% if author.EMAIL and CP_EMAIL %}
 							{{ lang('AUTHOR_EMAIL') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="mailto:{{ author.EMAIL }}">{{ author.EMAIL }}</a><br />
 						{% endif %}
-						{% if author.HOMEPAGE %}
+						{% if author.HOMEPAGE and CP_HOMEPAGE %}
 							{{ lang('AUTHOR_HOMEPAGE') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="{{ author.HOMEPAGE }}">{{ author.HOMEPAGE }}</a>
 						{% endif %}
 						{% if not loop.last %}
