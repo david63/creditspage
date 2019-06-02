@@ -4,6 +4,8 @@
 	<fieldset>
 		<legend>{{ lang('CREDIT_PAGE_OPTIONS') }}</legend>
 
+		<div class="centered-text">{{ lang('OPTIONS_EXPLAIN') }}</div><br />
+
 		<div class="table">
 			<div class="table-header">
 				<div class="table-header-cell-left">{{ lang('EXTENSION_NAME') }}</div>
@@ -20,7 +22,7 @@
 						<div class="table-body-cell-centre">
 							<div class="checkbox">
 								<input type="checkbox">
-								<input type="checkbox" name="ext/{{ row.NAME }}/1" {% if row.OPT_SET == 1 or row.OPT_SET == 3 or row.OPT_SET == 7 %} checked {% endif %}/>
+								<input type="checkbox" name="ext/{{ row.NAME }}/{{ OPT_USR }}" {% if row.OPT_SET b-and OPT_USR %} checked {% endif %}/>
 								<label data-on="✔" data-off="✘"></label>
 							</div>
 						</div>
@@ -28,7 +30,7 @@
 						<div class="table-body-cell-centre">
 							<div class="checkbox">
 								<input type="checkbox">
-								<input type="checkbox" name="ext/{{ row.NAME }}/2" {% if row.OPT_SET == 2 or row.OPT_SET == 3 or row.OPT_SET == 6 or row.OPT_SET == 7 %} checked {% endif %}/>
+								<input type="checkbox" name="ext/{{ row.NAME }}/{{ OPT_MOD }}" {% if row.OPT_SET b-and OPT_MOD %} checked {% endif %}/>
 								<label data-on="✔" data-off="✘"></label>
 							</div>
 						</div>
@@ -36,7 +38,7 @@
 						<div class="table-body-cell-centre">
 							<div class="checkbox">
 								<input type="checkbox">
-								<input type="checkbox" name="ext/{{ row.NAME }}/4" {% if row.OPT_SET == 4 or row.OPT_SET == 5 or row.OPT_SET == 6 or row.OPT_SET == 7 %} checked {% endif %}/>
+								<input type="checkbox" name="ext/{{ row.NAME }}/{{ OPT_ADM }}" {% if row.OPT_SET b-and OPT_ADM %} checked {% endif %}/>
 					   			<label data-on="✔" data-off="✘"></label>
 				   			</div>
 						</div>

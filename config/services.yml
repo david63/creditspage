@@ -42,6 +42,7 @@ services:
             - '@dbal.conn'
             - '@ext.manager'
             - '%tables%'
+            - '@language'
 
 parameters:
     cpconstants:
@@ -51,10 +52,4 @@ parameters:
 
         cpuser: 1
         cpmod: 2
-        cpuser_mod: 3
         cpadmin: 4
-        cpuser_admin: 5
-        cpmod_admin: 6
-        cpuser_mod_admin: 7
-
-        creditspage_version: '2.1.0 RC1'

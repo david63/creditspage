@@ -131,7 +131,7 @@ class admin_controller implements admin_interface
 
 			'S_BACK'			=> $back,
 
-			'VERSION_NUMBER'	=> $this->constants['creditspage_version'],
+			'VERSION_NUMBER'	=> $this->creditspage->get_this_version('david63\creditspage'),
 		));
 
 		$ext_data = $this->creditspage->get_credit_values();
@@ -164,6 +164,12 @@ class admin_controller implements admin_interface
 				));
 			}
 		}
+
+		$this->template->assign_vars(array(
+			'OPT_ADM' => $this->constants['cpadmin'],
+			'OPT_MOD' => $this->constants['cpmod'],
+			'OPT_USR' => $this->constants['cpuser'],
+		));
 	}
 
 	/**
@@ -176,7 +182,7 @@ class admin_controller implements admin_interface
 	{
 		$ext_vars	= $this->request->variable_names();
 		$ext_ary	= array();
-		$user_opts = $mod_opts = $admin_opts = 0;
+		$opts_set	= 0;
 
 		// Need only the extension variables here
 		foreach ($ext_vars as $key => $data)
@@ -184,22 +190,18 @@ class admin_controller implements admin_interface
 			// Get the key/value data
 			if (substr($data, 0, 3) == 'ext')
 			{
-				$ext_value	= substr($data, -1);
+				$opts_set	|= substr($data, -1);
 				$ext_key 	= substr($data, 4);
-				$ext_key 	= substr($ext_key, 0, -2);
-
-				$user_opts	= ($ext_value == $this->constants['cpuser']) ? $this->constants['cpuser'] : 0;
-				$mod_opts 	= ($ext_value == $this->constants['cpmod']) ? $this->constants['cpmod'] : 0;
-				$admin_opts = ($ext_value == $this->constants['cpadmin']) ? $this->constants['cpadmin'] : 0;
+				$ext_key	= substr($ext_key, 0, -2);
 
 				// Combine the values
 				if (array_key_exists($ext_key, $ext_ary))
 				{
-					$ext_ary[$ext_key] += $ext_value;
+					$ext_ary[$ext_key] |= substr($data, -1);
 				}
 				else
 				{
-					$ext_ary[$ext_key] = $ext_value;
+					$ext_ary[$ext_key] = substr($data, -1);
 				}
 			}
 		}
@@ -208,7 +210,7 @@ class admin_controller implements admin_interface
 		$sql = 'UPDATE ' . $this->tables['ext'] . '
 				SET ext_credits = 0';
 
-			$this->db->sql_query($sql);
+		$this->db->sql_query($sql);
 
 		// Update the extensions table in the database
 		foreach ($ext_ary as $key => $value)
@@ -220,7 +222,7 @@ class admin_controller implements admin_interface
 			$this->db->sql_query($sql);
 		}
 
-		$this->config->set('cp_show_navbar', $user_opts + $mod_opts + $admin_opts);
+		$this->config->set('cp_show_navbar', $opts_set);
 	}
 
 	/**
@@ -267,7 +269,7 @@ class admin_controller implements admin_interface
 
 			'S_BACK'			=> $back,
 
-			'VERSION_NUMBER'	=> $this->constants['creditspage_version'],
+			'VERSION_NUMBER'	=> $this->creditspage->get_this_version('david63\creditspage'),
 		));
 
 		$this->template->assign_vars(array(

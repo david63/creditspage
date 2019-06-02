@@ -51,6 +51,8 @@ $lang = array_merge($lang, array(
 	'CP_ROLE'						=> 'Author role',
 	'CP_ROLE_EXPLAIN'				=> 'Show the role of the author - if present.',
 
+	'OPTIONS_EXPLAIN'				=> 'Click on an “Extension name” to display the details of that extension.',
+
 	'VERSION'						=> 'Version',
 ));
 

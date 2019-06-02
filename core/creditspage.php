@@ -11,6 +11,7 @@ namespace david63\creditspage\core;
 
 use phpbb\db\driver\driver_interface;
 use phpbb\extension\manager;
+use phpbb\language\language;
 
 /**
 * creditspage
@@ -26,26 +27,45 @@ class creditspage
 	/** @var string custom tables */
 	protected $tables;
 
+	/** @var \phpbb\language\language */
+	protected $language;
+
 	/**
 	* Constructor for creditspage
 	*
 	* @param \phpbb_db_driver				$db							The db connection
 	* @param \phpbb\extension\manager		$phpbb_extension_manager	Extension manager
 	* @param array							$tables						phpBB db tables
+	* @param \phpbb\language\language		$language					Language object
 	*
 	* @access public
 	*/
-	public function __construct(driver_interface $db, manager $phpbb_extension_manager, $tables)
+	public function __construct(driver_interface $db, manager $phpbb_extension_manager, $tables, language $language)
 	{
 		$this->db			= $db;
 		$this->ext_manager	= $phpbb_extension_manager;
 		$this->tables		= $tables;
+		$this->language		= $language;
 	}
 
 	/**
-	* Display the user privacy data
+	* Get the version number of this extension
 	*
-	* @return null
+	* @return $meta_data
+	* @access public
+	*/
+	public function get_this_version($extension)
+	{
+		$md_manager = $this->ext_manager->create_extension_metadata_manager($extension);
+		$meta_data	= $md_manager->get_metadata('version');
+
+		return $meta_data;
+	}
+
+	/**
+	* Get the meta data for the enabled extensions
+	*
+	* @return $enabled_extension_meta_data
 	* @access public
 	*/
 	public function enabled_extension_meta_data()
@@ -56,6 +76,12 @@ class creditspage
 		{
 			$md_manager = $this->ext_manager->create_extension_metadata_manager($name);
 			$meta_data	= $md_manager->get_metadata('all');
+
+			// Let's validate the meta data
+			if (!array_key_exists('description', $meta_data) || $meta_data['description'] == '')
+			{
+				$meta_data['description'] = $this->language->lang('NO_DESCRIPTION');
+			}
 
 			$enabled_extension_meta_data[$name] = array(
 				'META_AUTHORS'		=> $meta_data['authors'],
@@ -69,6 +95,12 @@ class creditspage
 		return $enabled_extension_meta_data;
 	}
 
+	/**
+	* Get the extension permission values from the database
+	*
+	* @return $ext_data
+	* @access public
+	*/
 	public function get_credit_values()
 	{
 		$ext_data = array();

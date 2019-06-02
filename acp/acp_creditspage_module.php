@@ -19,7 +19,6 @@ class acp_creditspage_module
 
 		$this->page_title = $phpbb_container->get('language')->lang('CREDITS_PAGE');
 
-
 		switch ($mode)
 		{
 			case 'settings':

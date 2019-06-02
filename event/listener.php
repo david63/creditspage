@@ -91,7 +91,7 @@ class listener implements EventSubscriberInterface
 	public function page_header($event)
 	{
 		// Can we show the nav bar link?
-		if (($this->auth->acl_get('a_') && ($this->config['cp_show_navbar'] >= $this->constants['cpadmin'])) || ($this->auth->acl_get('m_') && ($this->config['cp_show_navbar'] == $this->constants['cpmod'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod'] || $this->config['cp_show_navbar'] == $this->constants['cpmod_admin'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod_admin'])) || ($this->auth->acl_get('u_') && ($this->config['cp_show_navbar'] == $this->constants['cpuser'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod'] || $this->config['cp_show_navbar'] == $this->constants['cpuser_mod_admin'])))
+		if ($this->auth->acl_get('u_') && ($this->config['cp_show_navbar'] & $this->constants['cpuser']) || $this->auth->acl_get('m_') && ($this->config['cp_show_navbar'] & $this->constants['cpmod']) || $this->auth->acl_get('a_') && ($this->config['cp_show_navbar'] & $this->constants['cpadmin']))
 		{
 			$this->template->assign_var('SHOW_CP_LINK', true);
 		}
@@ -115,7 +115,7 @@ class listener implements EventSubscriberInterface
 		foreach ($enabled_extension_meta_data as $name => $block_vars)
 		{
 			// Let's decide who can see what - Founders see everything
-			if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpadmin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod_admin']) || ($this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpmod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpmod_admin'] || $ext_data[$block_vars['META_NAME']] == 7)) || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] == $this->constants['cpuser'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod'] || $ext_data[$block_vars['META_NAME']] == $this->constants['cpuser_mod_admin']))))
+			if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('u_') && ($ext_data[$block_vars['META_NAME']] & $this->constants['cpuser']) || $this->auth->acl_get('m_') && ($ext_data[$block_vars['META_NAME']] & $this->constants['cpmod']) || $this->auth->acl_get('a_') && ($ext_data[$block_vars['META_NAME']] & $this->constants['cpadmin'])))
 			{
 				$this->template->assign_block_vars('credit_row', array(
 					'DESCRIPTION'	=> $block_vars['META_DESCRIPTION'],
