@@ -1,0 +1,50 @@
+{% include 'overall_header.html' %}
+{% INCLUDECSS '@david63_creditspage/forms.css' %}
+
+<h2>{PAGE_TITLE}</h2>
+
+<div class="forabg creditspage">
+	<div class="inner">
+		<ul class="topiclist">
+			<li class="header">
+				<dl class="row-item">
+					<dd class="topics">{{ lang('EXTENSION_NAME') }}{{ lang('HYPHEN_SEPARATOR') }}{{ lang('DESCRIPTION') }}</dd>
+					<dd class="posts">{{ lang('VERSION') }}</dd>
+					<dd class="lastpost">{{ lang('AUTHORS') }}</dd>
+				</dl>
+			</li>
+		</ul>
+		{% for row in credit_row %}
+			<ul class="topiclist">
+				<li class="row{% if row.S_ROW_COUNT is even %} bg1{% else %} bg2{% endif %}">
+					<dl class="row-item">
+						<dd class="topics"><span class="cp-name">{{ row.DISPLAY_NAME }}{{ lang('COLON') }}</span>{{ row.DESCRIPTION }}</dd>
+						<dd class="posts">{{ row.VERSION }}</dd>
+						<dd class="lastpost">
+						{% for author in row.author %}
+							<span class="cp-name">{{ author.AUTHOR }}</span>
+							{% if CP_ROLE %}
+							   ({{ author.ROLE }})<br />
+							{% endif %}
+							{% if author.HOMEPAGE and CP_HOMEPAGE %}
+								<a href="{{ author.HOMEPAGE }}">{{ lang('AUTHOR_HOMEPAGE') }}</a>
+							{% endif %}
+							{% if author.EMAIL and CP_EMAIL and author.HOMEPAGE and CP_HOMEPAGE %}
+								{{ lang('HYPHEN_SEPARATOR') }}
+							{% endif %}
+							{% if author.EMAIL and CP_EMAIL %}
+								<a href="mailto:{{ author.EMAIL }}">{{ lang('AUTHOR_EMAIL') }}</a>
+							{% endif %}
+							{% if not loop.last %}
+								<hr>
+							{% endif %}
+						{% endfor %}
+						</dd>
+					</dl>
+				</li>
+	   		</ul>
+		{% endfor %}
+	</div>
+</div>
+
+{% include 'overall_footer.html' %}

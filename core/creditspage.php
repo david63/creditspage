@@ -129,4 +129,24 @@ class creditspage
 	{
 		return strnatcasecmp($val1['META_DISPLAY_NAME'], $val2['META_DISPLAY_NAME']);
 	}
+
+	/**
+	* Get a tiny url for a link
+	*
+	* @return $data
+	* @access public
+	*/
+	function get_tiny_url($url)
+	{
+		$ch			= curl_init();
+		$timeout	= 5;
+
+		curl_setopt($ch,CURLOPT_URL,'http://tinyurl.com/api-create.php?url='.$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+
+		return $data;
+	}
 }

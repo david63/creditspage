@@ -37,10 +37,8 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'AUTHOR_NAME'		=> '<em>Name</em>',
-	'AUTHOR_EMAIL'		=> '<em>Email</em>',
-	'AUTHOR_HOMEPAGE'	=> '<em>Homepage</em>',
-	'AUTHOR_ROLE'		=> '<em>Role</em>',
+	'AUTHOR_EMAIL'		=> 'Email',
+	'AUTHOR_HOMEPAGE'	=> 'Homepage',
 	'AUTHORS'			=> 'Author(s)',
 
 	'CREDITS' 			=> 'Credits',
@@ -50,6 +48,7 @@ $lang = array_merge($lang, array(
 
 	'EXTENSION_CREDITS'	=> 'Extension Credits',
 	'EXTENSION_NAME'	=> 'Extension Name',
+	'HYPHEN_SEPARATOR'	=> ' - ',
 
 	'NO_DESCRIPTION'	=> 'No description has been entered for this extension',
 

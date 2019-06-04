@@ -128,7 +128,7 @@ class listener implements EventSubscriberInterface
 					$this->template->assign_block_vars('credit_row.author', array(
 						'AUTHOR'		=> $data['name'],
 						'EMAIL'			=> (array_key_exists('email', $data)) ? $data['email'] : '',
-						'HOMEPAGE'		=> (array_key_exists('homepage', $data)) ? $data['homepage'] : '',
+						'HOMEPAGE'		=> (array_key_exists('homepage', $data)) ? $this->creditspage->get_tiny_url($data['homepage']) : '',
 						'ROLE'			=> (array_key_exists('role', $data)) ? $data['role'] : '',
 					));
 				}
