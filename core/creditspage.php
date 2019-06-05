@@ -46,6 +46,35 @@ class creditspage
 		$this->ext_manager	= $phpbb_extension_manager;
 		$this->tables		= $tables;
 		$this->language		= $language;
+
+		$this->namespace	= __NAMESPACE__;
+	}
+
+
+	/**
+	* Get the extension's namespace
+	*
+	* @return $extension_name
+	* @access public
+	*/
+	public function get_ext_namespace()
+	{
+		return $extension_name = substr($this->namespace, 0, -(strlen($this->namespace) - strrpos($this->namespace, '\\')));
+	}
+
+	/**
+	* Check if there is an updated version of the extension
+	*
+	* @return $new_version
+	* @access public
+	*/
+	public function version_check()
+	{
+		$md_manager 	= $this->ext_manager->create_extension_metadata_manager($this->get_ext_namespace());
+		$versions 		= $this->ext_manager->version_check($md_manager);
+		$new_version	= (array_key_exists('current', $versions) ? true : false);
+
+		return $new_version;
 	}
 
 	/**
@@ -54,9 +83,9 @@ class creditspage
 	* @return $meta_data
 	* @access public
 	*/
-	public function get_this_version($extension)
+	public function get_this_version()
 	{
-		$md_manager = $this->ext_manager->create_extension_metadata_manager($extension);
+		$md_manager = $this->ext_manager->create_extension_metadata_manager($this->get_ext_namespace());
 		$meta_data	= $md_manager->get_metadata('version');
 
 		return $meta_data;
@@ -138,15 +167,23 @@ class creditspage
 	*/
 	function get_tiny_url($url)
 	{
-		$ch			= curl_init();
-		$timeout	= 5;
+		// Check if cURL is available on the server
+		if (function_exists('curl_version'))
+		{
+			$curl_handle = curl_init();
+			curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl_handle, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url=' . $url);
 
-		curl_setopt($ch,CURLOPT_URL,'http://tinyurl.com/api-create.php?url='.$url);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-		$data = curl_exec($ch);
-		curl_close($ch);
+			$data = curl_exec($curl_handle);
+			curl_close($curl_handle);
 
-		return $data;
+			return $data;
+		}
+		else
+		{
+			// If not then return original url
+			return $url;
+		}
 	}
 }

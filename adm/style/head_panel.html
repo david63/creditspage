@@ -24,3 +24,10 @@
 		<div class="head-description">{{ ERROR_DESCRIPTION }}</div>
 	</div>
 {% endif %}
+
+{% if S_VERSION_CHECK %}
+	<div class="head-panel-version">
+		<div class="head-title">{{ lang('NEW_VERSION') }}</div>
+		<div class="head-description">{{ lang('NEW_VERSION_EXPLAIN') }}</div>
+	</div>
+{% endif %}

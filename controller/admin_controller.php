@@ -130,8 +130,9 @@ class admin_controller implements admin_interface
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_EXPLAIN'),
 
 			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->creditspage->version_check(),
 
-			'VERSION_NUMBER'	=> $this->creditspage->get_this_version('david63\creditspage'),
+			'VERSION_NUMBER'	=> $this->creditspage->get_this_version(),
 		));
 
 		$ext_data = $this->creditspage->get_credit_values();
@@ -268,8 +269,9 @@ class admin_controller implements admin_interface
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_MANAGE_EXPLAIN'),
 
 			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->creditspage->version_check(),
 
-			'VERSION_NUMBER'	=> $this->creditspage->get_this_version('david63\creditspage'),
+			'VERSION_NUMBER'	=> $this->creditspage->get_this_version(),
 		));
 
 		$this->template->assign_vars(array(
