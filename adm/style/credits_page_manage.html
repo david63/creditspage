@@ -2,6 +2,17 @@
 
 <form id="creditspage_manage" method="post" action="{{ U_ACTION }}">
 	<fieldset>
+		<legend>{{ lang('OPTIONS') }}</legend>
+
+		<dl>
+			<dt><label for="cp_items_page">{{ lang('CP_ITEMS_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_ITEMS_PAGE_EXPLAIN') }}</span></dt>
+			<dd>
+				<input class="textbox" name="cp_items_page" type="number" id="cp_items_page" value="{{ CP_ITEMS_PAGE }}" min="1" max="50" />
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
 		<legend>{{ lang('AUTHOR_ATTRIBUTES') }}</legend>
 
 		<dl>

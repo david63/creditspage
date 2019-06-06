@@ -16,7 +16,7 @@ use phpbb\user;
 use phpbb\language\language;
 use phpbb\log\log;
 use phpbb\db\driver\driver_interface;
-use david63\creditspage\core\creditspage;
+use david63\creditspage\core\functions;
 
 /**
 * Admin controller
@@ -44,7 +44,7 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
-	/** @var \david63\creditspage\core\creditspage */
+	/** @var \david63\creditspage\core\functions */
 	protected $creditspage;
 
 	/** @var string custom constants */
@@ -66,14 +66,14 @@ class admin_controller implements admin_interface
 	* @param \phpbb\language\language				$language		Language object
 	* @param \phpbb\log\log							$log			Log object
 	* @param \phpbb_db_driver						$db				The db connection
-	* @param \david63\creditspage\core\creditspage	creditspage		Methods for the extension
+	* @param \david63\creditspage\core\functions	functions		Functiond for the extension
 	* @param array	                            	$constants		phpBB constants
 	* @param array									$tables			phpBB db tables
 	*
 	* @return \david63\creditspage\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, creditspage $creditspage, $cpconstants, $tables)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, functions $functions, $cpconstants, $tables)
 	{
 		$this->config		= $config;
 		$this->request		= $request;
@@ -82,7 +82,7 @@ class admin_controller implements admin_interface
 		$this->language		= $language;
 		$this->log			= $log;
 		$this->db			= $db;
-		$this->creditspage	= $creditspage;
+		$this->functions	= $functions;
 		$this->constants	= $cpconstants;
 		$this->tables		= $tables;
 	}
@@ -96,7 +96,7 @@ class admin_controller implements admin_interface
 	public function display_settings()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_credits_page', 'david63/creditspage');
+		$this->language->add_lang('acp_credits_page', $this->functions->get_ext_namespace());
 
 		// Create a form key for preventing CSRF attacks
 		add_form_key($this->constants['form_key']);
@@ -130,15 +130,15 @@ class admin_controller implements admin_interface
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_EXPLAIN'),
 
 			'S_BACK'			=> $back,
-			'S_VERSION_CHECK'	=> $this->creditspage->version_check(),
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
 
-			'VERSION_NUMBER'	=> $this->creditspage->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
-		$ext_data = $this->creditspage->get_credit_values();
+		$ext_data = $this->functions->get_credit_values();
 
-		$enabled_extension_meta_data = $this->creditspage->enabled_extension_meta_data();
-		uasort($enabled_extension_meta_data, array($this->creditspage, 'sort_extension_meta_data_table'));
+		$enabled_extension_meta_data = $this->functions->enabled_extension_meta_data();
+		uasort($enabled_extension_meta_data, array($this->functions, 'sort_extension_meta_data_table'));
 
 		foreach ($enabled_extension_meta_data as $name => $block_vars)
 		{
@@ -150,7 +150,14 @@ class admin_controller implements admin_interface
 
 				'NAME' 			=> $block_vars['META_NAME'],
 
+				'TIME'			=> $block_vars['META_TIME'],
+
 				'OPT_SET'		=> $ext_data[$block_vars['META_NAME']],
+
+				'PHP'			=> $block_vars['META_PHP'],
+				'PHPBB'			=> $block_vars['META_PHPBB'],
+
+				'S_TIME_SET'	=> ($block_vars['META_TIME']) ? true : false,
 
 				'VERSION'		=> $block_vars['META_VERSION'],
 			));
@@ -235,7 +242,7 @@ class admin_controller implements admin_interface
 	public function display_options()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_credits_page', 'david63/creditspage');
+		$this->language->add_lang('acp_credits_page', $this->functions->get_ext_namespace());
 
 		// Create a form key for preventing CSRF attacks
 		add_form_key($this->constants['form_key']);
@@ -269,14 +276,15 @@ class admin_controller implements admin_interface
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_MANAGE_EXPLAIN'),
 
 			'S_BACK'			=> $back,
-			'S_VERSION_CHECK'	=> $this->creditspage->version_check(),
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
 
-			'VERSION_NUMBER'	=> $this->creditspage->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		$this->template->assign_vars(array(
 			'CP_EMAIL'		=> isset($this->config['cp_email']) ? $this->config['cp_email'] : '',
 			'CP_HOMEPAGE'	=> isset($this->config['cp_homepage']) ? $this->config['cp_homepage'] : '',
+			'CP_ITEMS_PAGE'	=> isset($this->config['cp_items_page']) ? $this->config['cp_items_page'] : '',
 			'CP_ROLE'		=> isset($this->config['cp_role']) ? $this->config['cp_role'] : '',
 
 			'U_ACTION'		=> $this->u_action,
@@ -293,6 +301,7 @@ class admin_controller implements admin_interface
 	{
 		$this->config->set('cp_email', $this->request->variable('cp_email', 0));
 		$this->config->set('cp_homepage', $this->request->variable('cp_homepage', 1));
+		$this->config->set('cp_items_page', $this->request->variable('cp_items_page', 25));
 		$this->config->set('cp_role', $this->request->variable('cp_role', 1));
 	}
 

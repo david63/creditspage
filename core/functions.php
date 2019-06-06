@@ -14,9 +14,9 @@ use phpbb\extension\manager;
 use phpbb\language\language;
 
 /**
-* creditspage
+* functions
 */
-class creditspage
+class functions
 {
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
@@ -50,7 +50,6 @@ class creditspage
 		$this->namespace	= __NAMESPACE__;
 	}
 
-
 	/**
 	* Get the extension's namespace
 	*
@@ -72,7 +71,7 @@ class creditspage
 	{
 		$md_manager 	= $this->ext_manager->create_extension_metadata_manager($this->get_ext_namespace());
 		$versions 		= $this->ext_manager->version_check($md_manager);
-		$new_version	= (array_key_exists('current', $versions) ? true : false);
+		$new_version	= (array_key_exists('current', $versions) ? $versions['current'] : false);
 
 		return $new_version;
 	}
@@ -112,11 +111,19 @@ class creditspage
 				$meta_data['description'] = $this->language->lang('NO_DESCRIPTION');
 			}
 
+			if (!array_key_exists('time', $meta_data))
+			{
+				$meta_data['time'] = '';
+			}
+
 			$enabled_extension_meta_data[$name] = array(
 				'META_AUTHORS'		=> $meta_data['authors'],
 				'META_DESCRIPTION' 	=> $meta_data['description'],
 				'META_DISPLAY_NAME'	=> $meta_data['extra']['display-name'],
 				'META_NAME'			=> $meta_data['name'],
+				'META_PHP'			=> $meta_data['require']['php'],
+				'META_PHPBB'		=> $meta_data['extra']['soft-require']['phpbb/phpbb'],
+				'META_TIME'			=> $meta_data['time'],
 				'META_VERSION' 		=> $meta_data['version'],
 			);
 		}

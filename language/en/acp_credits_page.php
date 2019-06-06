@@ -38,6 +38,8 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'AUTHOR_ATTRIBUTES'				=> 'Author attributes',
+	'AUTHOR_NAME'					=> 'Author',
+	'AUTHOR_ROLE'					=> 'Role',
 
 	'CREDITS_PAGE'					=> 'Extension Credits Page',
 	'CREDITS_PAGE_EXPLAIN'			=> 'Here you can select wihch user type can view each extension credit.',
@@ -48,13 +50,23 @@ $lang = array_merge($lang, array(
 	'CP_EMAIL_EXPLAIN'				=> 'Show the email address of the author - if present.',
 	'CP_HOMEPAGE'					=> 'Author homepage',
 	'CP_HOMEPAGE_EXPLAIN'			=> 'Show the homepage of the author - if present.',
+	'CP_ITEMS_PAGE'					=> 'Items per page',
+	'CP_ITEMS_PAGE_EXPLAIN'			=> 'Select the number of extension credits to be displayed on each page.',
 	'CP_ROLE'						=> 'Author role',
 	'CP_ROLE_EXPLAIN'				=> 'Show the role of the author - if present.',
+
+	'HYPHEN_SEPARATOR'				=> ' - ',
 
 	'NEW_VERSION'					=> 'New Version',
 	'NEW_VERSION_EXPLAIN'			=> 'There is a newer version of this extension available.',
 
+	'OPTIONS'						=> 'Options',
 	'OPTIONS_EXPLAIN'				=> 'Click on an “Extension name” to display the details of that extension.',
+
+	'PHP'							=> 'PHP',
+	'PHPBB'							=> 'phpBB',
+
+	'REQUIRES'						=> 'Requires',
 
 	'VERSION'						=> 'Version',
 ));

@@ -3,6 +3,16 @@
 
 <h2>{PAGE_TITLE}</h2>
 
+<form method="post" id="creditspage" action="{{ U_ACTION }}">
+
+<div class="action-bar bar-bottom">
+	<div class="pagination">
+		{% if pagination %}
+			{% include 'pagination.html' %}
+		{% endif %}
+	</div>
+</div>
+
 <div class="forabg creditspage">
 	<div class="inner">
 		<ul class="topiclist">
@@ -44,6 +54,15 @@
 				</li>
 	   		</ul>
 		{% endfor %}
+	</div>
+</div>
+</form>
+
+<div class="action-bar bar-bottom">
+	<div class="pagination">
+		{% if pagination %}
+			{% include 'pagination.html' %}
+		{% endif %}
 	</div>
 </div>
 

@@ -8,9 +8,8 @@ services:
             - '@config'
             - '@auth'
             - '@template'
-            - '@user'
             - '@controller.helper'
-            - '@david63.creditspage.core.creditspage'
+            - '@david63.creditspage.core.functions'
             - '%cpconstants%'
         tags:
             - { name: event.listener }
@@ -25,19 +24,26 @@ services:
             - '@language'
             - '@log'
             - '@dbal.conn'
-            - '@david63.creditspage.core.creditspage'
+            - '@david63.creditspage.core.functions'
             - '%cpconstants%'
             - '%tables%'
 
     david63.creditspage.main.controller:
         class: david63\creditspage\controller\main_controller
         arguments:
-            - '@controller.helper'
+            - '@config'
+            - '@request'
+            - '@auth'
             - '@template'
+            - '@user'
             - '@language'
+            - '@controller.helper'
+            - '@pagination'
+            - '@david63.creditspage.core.functions'
+            - '%cpconstants%'
 
-    david63.creditspage.core.creditspage:
-        class: david63\creditspage\core\creditspage
+    david63.creditspage.core.functions:
+        class: david63\creditspage\core\functions
         arguments:
             - '@dbal.conn'
             - '@ext.manager'

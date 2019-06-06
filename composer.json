@@ -27,7 +27,7 @@
 	"extra": {
 		"display-name": "[+] Credits page",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2.2"
+			"phpbb/phpbb": ">=3.2.7"
 		},
 		"version-check": {
         	"host": "version.phpbbdev.space",

@@ -19,21 +19,21 @@ class acp_creditspage_module
 
 		$this->page_title = $phpbb_container->get('language')->lang('CREDITS_PAGE');
 
+		// Get an instance of the admin controller
+		$admin_controller = $phpbb_container->get('david63.creditspage.admin.controller');
+
+		// Make the $u_action url available in the admin controller
+		$admin_controller->set_page_url($this->u_action);
+
 		switch ($mode)
 		{
 			case 'settings':
 				$this->tpl_name = 'credits_page_settings';
-
-				// Get an instance of the admin controller
-				$admin_controller = $phpbb_container->get('david63.creditspage.admin.controller');
 				$admin_controller->display_settings();
 			break;
 
 			case 'manage':
 				$this->tpl_name = 'credits_page_manage';
-
-				// Get an instance of the admin controller
-				$admin_controller = $phpbb_container->get('david63.creditspage.admin.controller');
 				$admin_controller->display_options();
 			break;
 		}

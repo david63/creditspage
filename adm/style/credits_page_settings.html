@@ -52,7 +52,16 @@
 
 						<div class="table-row11">
 							<div class="table-body-cell-narrow">{{ lang('VERSION') }} {{ lang('COLON') }}</div>
-							<div class="table-body-cell-wide">{{ row.VERSION }}</div>
+							<div class="table-body-cell-wide">{{ row.VERSION }}
+								{% if row.S_TIME_SET %}
+									{{ lang('HYPHEN_SEPARATOR') }}{{ row.TIME }}
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="table-row11">
+							<div class="table-body-cell-narrow">{{ lang('REQUIRES') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide">{{ lang('PHP') }} {{ lang('COLON') }} {{ row.PHP }}{{ lang('HYPHEN_SEPARATOR') }}{{ lang('PHPBB') }} {{ lang('COLON') }} {{ row.PHPBB }}</div>
 						</div>
 
 						<div class="table-row11">

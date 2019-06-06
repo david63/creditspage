@@ -25,6 +25,7 @@ class version_2_1_0 extends migration
 		return array(
 			array('config.add', array('cp_email', 1)),
 			array('config.add', array('cp_homepage', 1)),
+			array('config.add', array('cp_items_page', 25)),
 			array('config.add', array('cp_role', 1)),
 			array('config.add', array('cp_show_navbar', 0)),
 

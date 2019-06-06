@@ -48,6 +48,7 @@ $lang = array_merge($lang, array(
 
 	'EXTENSION_CREDITS'	=> 'Extension Credits',
 	'EXTENSION_NAME'	=> 'Extension Name',
+
 	'HYPHEN_SEPARATOR'	=> ' - ',
 
 	'NO_DESCRIPTION'	=> 'No description has been entered for this extension',
