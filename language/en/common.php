@@ -48,6 +48,7 @@ $lang = array_merge($lang, array(
 
 	'EXTENSION_CREDITS'	=> 'Extension Credits',
 	'EXTENSION_NAME'	=> 'Extension Name',
+	'EXTENSIONS'		=> 'extensions',
 
 	'HYPHEN_SEPARATOR'	=> ' - ',
 

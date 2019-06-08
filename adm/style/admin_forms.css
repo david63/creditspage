@@ -467,7 +467,7 @@ Tables
 	text-align: left;
 	vertical-align: middle;
 	font-size: 0.85em;
-	padding: 4px 5px;
+	padding: 4px 0 4px 5px;
 	line-height: 1.20em;
 	border-right: 1px solid #FFFFFF;
 }
@@ -496,6 +496,10 @@ Tables
 
 .table-body-cell-centre {
 	text-align: center;
+}
+
+.shaded {
+	background-color: #EBEBEB;
 }
 
 .pointer {
@@ -551,9 +555,7 @@ Version
 	color: #FFFFFF;
 	font-size: 0.8em;
 	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: 4px;
+	padding: 4px 5px 0 5px
 }
 
 .version-text {

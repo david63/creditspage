@@ -1,10 +1,10 @@
-{% INCLUDE '@david63_creditspage/head_panel.html' %}
+{% INCLUDE '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
 <form id="creditspage_settings" method="post" action="{{ U_ACTION }}">
 	<fieldset>
 		<legend>{{ lang('CREDIT_PAGE_OPTIONS') }}</legend>
 
-		<div class="centered-text">{{ lang('OPTIONS_EXPLAIN') }}</div><br />
+		<div class="centered-text">{{ lang('OPTIONS_EXPLAIN') }}</div><br>
 
 		<div class="table">
 			<div class="table-header">
@@ -46,13 +46,13 @@
 
 					<div class="table-row-span" id="{{ row.META_KEY }}">
 						<div class="table-row11">
-							<div class="table-body-cell-narrow">{{ lang('DESCRIPTION') }} {{ lang('COLON') }}</div>
-							<div class="table-body-cell-wide">{{ row.DESCRIPTION }}</div>
+							<div class="table-body-cell-narrow shaded">{{ lang('DESCRIPTION') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide shaded">{{ row.DESCRIPTION }}</div>
 						</div>
 
 						<div class="table-row11">
-							<div class="table-body-cell-narrow">{{ lang('VERSION') }} {{ lang('COLON') }}</div>
-							<div class="table-body-cell-wide">{{ row.VERSION }}
+							<div class="table-body-cell-narrow shaded">{{ lang('VERSION') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide shaded">{{ row.VERSION }}
 								{% if row.S_TIME_SET %}
 									{{ lang('HYPHEN_SEPARATOR') }}{{ row.TIME }}
 								{% endif %}
@@ -60,18 +60,18 @@
 						</div>
 
 						<div class="table-row11">
-							<div class="table-body-cell-narrow">{{ lang('REQUIRES') }} {{ lang('COLON') }}</div>
-							<div class="table-body-cell-wide">{{ lang('PHP') }} {{ lang('COLON') }} {{ row.PHP }}{{ lang('HYPHEN_SEPARATOR') }}{{ lang('PHPBB') }} {{ lang('COLON') }} {{ row.PHPBB }}</div>
+							<div class="table-body-cell-narrow shaded">{{ lang('REQUIRES') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide shaded">{{ lang('PHP') }} {{ lang('COLON') }} {{ row.PHP }}{{ lang('HYPHEN_SEPARATOR') }}{{ lang('PHPBB') }} {{ lang('COLON') }} {{ row.PHPBB }}</div>
 						</div>
 
 						<div class="table-row11">
-							<div class="table-body-cell-narrow">{{ lang('AUTHORS') }} {{ lang('COLON') }}</div>
-							<div class="table-body-cell-wide">
+							<div class="table-body-cell-narrow shaded">{{ lang('AUTHORS') }} {{ lang('COLON') }}</div>
+							<div class="table-body-cell-wide shaded">
 								{% for author in row.author %}
-									{{ lang('AUTHOR_NAME') }}&nbsp;{{ lang('COLON') }}&nbsp;<strong>{{ author.AUTHOR }}</strong><br />
-									{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br />
+									{{ lang('AUTHOR_NAME') }}&nbsp;{{ lang('COLON') }}&nbsp;<strong>{{ author.AUTHOR }}</strong><br>
+									{{ lang('AUTHOR_ROLE') }}&nbsp;{{ lang('COLON') }}&nbsp;{{ author.ROLE }}<br>
 									{% if author.EMAIL %}
-										{{ lang('AUTHOR_EMAIL') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="mailto:{{ author.EMAIL }}">{{ author.EMAIL }}</a><br />
+										{{ lang('AUTHOR_EMAIL') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="mailto:{{ author.EMAIL }}">{{ author.EMAIL }}</a><br>
 									{% endif %}
 									{% if author.HOMEPAGE %}
 										{{ lang('AUTHOR_HOMEPAGE') }}&nbsp;{{ lang('COLON') }}&nbsp;<a href="{{ author.HOMEPAGE }}">{{ author.HOMEPAGE }}</a>
@@ -98,5 +98,5 @@
 	</fieldset>
 </form>
 
-{% INCLUDEJS '@david63_creditspage/creditspage.js' %}
+{% INCLUDEJS '@' ~ NAMESPACE ~ '/show_hide.js' %}
 {% INCLUDE 'overall_footer.html' %}

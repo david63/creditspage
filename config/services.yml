@@ -41,6 +41,8 @@ services:
             - '@pagination'
             - '@david63.creditspage.core.functions'
             - '%cpconstants%'
+            - '%core.root_path%'
+            - '%core.php_ext%'
 
     david63.creditspage.core.functions:
         class: david63\creditspage\core\functions

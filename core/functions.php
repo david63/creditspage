@@ -56,9 +56,16 @@ class functions
 	* @return $extension_name
 	* @access public
 	*/
-	public function get_ext_namespace()
+	public function get_ext_namespace($mode='php')
 	{
-		return $extension_name = substr($this->namespace, 0, -(strlen($this->namespace) - strrpos($this->namespace, '\\')));
+		$extension_name = substr($this->namespace, 0, -(strlen($this->namespace) - strrpos($this->namespace, '\\')));
+
+		if ($mode == 'twig')
+		{
+			$extension_name = str_replace('\\', '_', $extension_name);
+		}
+
+		return $extension_name;
 	}
 
 	/**

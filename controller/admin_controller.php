@@ -129,6 +129,8 @@ class admin_controller implements admin_interface
 			'HEAD_TITLE'		=> $this->language->lang('CREDITS_PAGE'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_EXPLAIN'),
 
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
+
 			'S_BACK'			=> $back,
 			'S_VERSION_CHECK'	=> $this->functions->version_check(),
 
@@ -274,6 +276,8 @@ class admin_controller implements admin_interface
 		$this->template->assign_vars(array(
 			'HEAD_TITLE'		=> $this->language->lang('CREDITS_PAGE'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('CREDITS_PAGE_MANAGE_EXPLAIN'),
+
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
 			'S_BACK'			=> $back,
 			'S_VERSION_CHECK'	=> $this->functions->version_check(),

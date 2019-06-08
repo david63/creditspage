@@ -27,14 +27,14 @@ class acp_creditspage_module
 
 		switch ($mode)
 		{
-			case 'settings':
-				$this->tpl_name = 'credits_page_settings';
-				$admin_controller->display_settings();
-			break;
-
 			case 'manage':
 				$this->tpl_name = 'credits_page_manage';
 				$admin_controller->display_options();
+			break;
+
+			case 'settings':
+				$this->tpl_name = 'credits_page_settings';
+				$admin_controller->display_settings();
 			break;
 		}
 	}

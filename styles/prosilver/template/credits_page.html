@@ -1,5 +1,5 @@
 {% include 'overall_header.html' %}
-{% INCLUDECSS '@david63_creditspage/forms.css' %}
+{% INCLUDECSS '@' ~ NAMESPACE ~ '/forms.css' %}
 
 <h2>{PAGE_TITLE}</h2>
 
@@ -7,8 +7,11 @@
 
 <div class="action-bar bar-bottom">
 	<div class="pagination">
+		{{ TOTAL_EXTENSIONS }}&nbsp;{{ lang('EXTENSIONS') }}
 		{% if pagination %}
 			{% include 'pagination.html' %}
+		{% else %}
+			 &bull;&nbsp;{{ PAGE_NUMBER }}
 		{% endif %}
 	</div>
 </div>
@@ -34,7 +37,7 @@
 						{% for author in row.author %}
 							<span class="cp-name">{{ author.AUTHOR }}</span>
 							{% if CP_ROLE %}
-							   ({{ author.ROLE }})<br />
+								({{ author.ROLE }})
 							{% endif %}
 							{% if author.HOMEPAGE and CP_HOMEPAGE %}
 								<a href="{{ author.HOMEPAGE }}">{{ lang('AUTHOR_HOMEPAGE') }}</a>
@@ -45,7 +48,7 @@
 							{% if author.EMAIL and CP_EMAIL %}
 								<a href="mailto:{{ author.EMAIL }}">{{ lang('AUTHOR_EMAIL') }}</a>
 							{% endif %}
-							{% if not loop.last %}
+							{% if not loop.last and (CP_ROLE or CP_HOMEPAGE or CP_EMAIL) %}
 								<hr>
 							{% endif %}
 						{% endfor %}
@@ -60,10 +63,14 @@
 
 <div class="action-bar bar-bottom">
 	<div class="pagination">
+		{{ TOTAL_EXTENSIONS }}&nbsp;{{ lang('EXTENSIONS') }}
 		{% if pagination %}
 			{% include 'pagination.html' %}
+		{% else %}
+			 &bull;&nbsp;{{ PAGE_NUMBER }}
 		{% endif %}
 	</div>
 </div>
 
+{% include 'jumpbox.html' %}
 {% include 'overall_footer.html' %}

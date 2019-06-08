@@ -1,11 +1,11 @@
-{% INCLUDE '@david63_creditspage/head_panel.html' %}
+{% INCLUDE '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
 <form id="creditspage_manage" method="post" action="{{ U_ACTION }}">
 	<fieldset>
 		<legend>{{ lang('OPTIONS') }}</legend>
 
 		<dl>
-			<dt><label for="cp_items_page">{{ lang('CP_ITEMS_PAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_ITEMS_PAGE_EXPLAIN') }}</span></dt>
+			<dt><label for="cp_items_page">{{ lang('CP_ITEMS_PAGE') }}{{ lang('COLON') }}</label><br><span>{{ lang('CP_ITEMS_PAGE_EXPLAIN') }}</span></dt>
 			<dd>
 				<input class="textbox" name="cp_items_page" type="number" id="cp_items_page" value="{{ CP_ITEMS_PAGE }}" min="1" max="50" />
 			</dd>
@@ -16,7 +16,7 @@
 		<legend>{{ lang('AUTHOR_ATTRIBUTES') }}</legend>
 
 		<dl>
-			<dt><label for="cp_role">{{ lang('CP_ROLE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_ROLE_EXPLAIN') }}</span></dt>
+			<dt><label for="cp_role">{{ lang('CP_ROLE') }}{{ lang('COLON') }}</label><br><span>{{ lang('CP_ROLE_EXPLAIN') }}</span></dt>
 			<dd>
 				<input type="radio" id="cp_role1" name="cp_role" value="1"{% if CP_ROLE %} checked="checked"{% endif %} />
 				<label class="set" for="cp_role1">{{ lang('YES') }}</label>
@@ -26,7 +26,7 @@
 		</dl>
 
 		<dl>
-			<dt><label for="cp_email">{{ lang('CP_EMAIL') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_EMAIL_EXPLAIN') }}</span></dt>
+			<dt><label for="cp_email">{{ lang('CP_EMAIL') }}{{ lang('COLON') }}</label><br><span>{{ lang('CP_EMAIL_EXPLAIN') }}</span></dt>
 			<dd>
 				<input type="radio" id="cp_email1" name="cp_email" value="1"{% if CP_EMAIL %} checked="checked"{% endif %} />
 				<label class="set" for="cp_email1">{{ lang('YES') }}</label>
@@ -36,7 +36,7 @@
 		</dl>
 
 		<dl>
-			<dt><label for="cp_homepage">{{ lang('CP_HOMEPAGE') }}{{ lang('COLON') }}</label><br /><span>{{ lang('CP_HOMEPAGE_EXPLAIN') }}</span></dt>
+			<dt><label for="cp_homepage">{{ lang('CP_HOMEPAGE') }}{{ lang('COLON') }}</label><br><span>{{ lang('CP_HOMEPAGE_EXPLAIN') }}</span></dt>
 			<dd>
 				<input type="radio" id="cp_homepage1" name="cp_homepage" value="1"{% if CP_HOMEPAGE %} checked="checked"{% endif %} />
 				<label class="set" for="cp_homepage1">{{ lang('YES') }}</label>
@@ -56,4 +56,4 @@
 	</fieldset>
 </form>
 
-{% INCLUDE '@david63_creditspage/donate.html' %}
+{% INCLUDE '@' ~ NAMESPACE ~ '/donate.html' %}

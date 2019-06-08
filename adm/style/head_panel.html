@@ -1,11 +1,11 @@
 {% INCLUDE 'overall_header.html' %}
-{% INCLUDECSS '@david63_creditspage/admin_forms.css' %}
+{% INCLUDECSS '@' ~ NAMESPACE ~ '/admin_forms.css' %}
 
 <a name="maincontent"></a>
 
 {% if S_BACK %}
 	<a href="{{ U_BACK }}" style="float: {{ S_CONTENT_FLOW_END }};">&laquo; {{ lang('BACK') }}</a>
-	<br />
+	<br>
 {% endif %}
 
 <div class="head-panel">
@@ -15,7 +15,7 @@
 		<div class="version-text">{{ lang('VERSION') }}</div>
 		<div class="version-data">{{ VERSION_NUMBER }}</div>
 	</div>
-	<br />
+	<br>
 </div>
 
 {% if S_ERROR %}
