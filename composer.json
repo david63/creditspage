@@ -2,7 +2,7 @@
 	"name": "david63/creditspage",
 	"type": "phpbb-extension",
 	"description": "Adds a link to a credits page showing extension credits.",
-	"version": "2.1.0-rc3",
+	"version": "2.1.0-RC3",
 	"time": "2019-06-08",
 	"keywords": [
 		"phpbb",

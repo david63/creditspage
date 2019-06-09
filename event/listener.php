@@ -15,6 +15,7 @@ namespace david63\creditspage\event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 use phpbb\config\config;
+use phpbb\user;
 use phpbb\auth\auth;
 use phpbb\template\template;
 use phpbb\controller\helper;
@@ -27,6 +28,9 @@ class listener implements EventSubscriberInterface
 {
 	/** @var \phpbb\config\config */
 	protected $config;
+
+	/** @var \phpbb\user */
+	protected $user;
 
 	/** @var \phpbb\auth\auth */
 	protected $auth;
@@ -47,6 +51,7 @@ class listener implements EventSubscriberInterface
 	* Constructor for listener
 	*
 	* @param \phpbb\config\config					$config			Config object
+	* @param \phpbb\user                			$user			User object
 	* @param \phpbb\auth\auth 						$auth			Auth object
 	* @param \phpbb\template\template				$template		Template object
 	* @param \phpbb\controller\helper				$helper			Helper object
@@ -56,9 +61,10 @@ class listener implements EventSubscriberInterface
 	* @return \david63\creditspage\event\listener
 	* @access public
 	*/
-	public function __construct(config $config, auth $auth, template $template, helper $helper, functions $functions, $cpconstants)
+	public function __construct(config $config, user $user, auth $auth, template $template, helper $helper, functions $functions, $cpconstants)
 	{
 		$this->config		= $config;
+		$this->user			= $user;
 		$this->auth			= $auth;
 		$this->template		= $template;
 		$this->helper		= $helper;
@@ -85,7 +91,7 @@ class listener implements EventSubscriberInterface
 	public function page_header($event)
 	{
 		// Can we show the nav bar link?
-		if ($this->auth->acl_get('u_') && ($this->config['cp_show_navbar'] & $this->constants['cpuser']) || $this->auth->acl_get('m_') && ($this->config['cp_show_navbar'] & $this->constants['cpmod']) || $this->auth->acl_get('a_') && ($this->config['cp_show_navbar'] & $this->constants['cpadmin']))
+		if ($this->user->data['user_type'] == $this->constants['user_founder'] || ($this->auth->acl_get('u_') && ($this->config['cp_show_navbar'] & $this->constants['cpuser']) || $this->auth->acl_get('m_') && ($this->config['cp_show_navbar'] & $this->constants['cpmod']) || $this->auth->acl_get('a_') && ($this->config['cp_show_navbar'] & $this->constants['cpadmin'])))
 		{
 			$this->template->assign_var('SHOW_CP_LINK', true);
 		}

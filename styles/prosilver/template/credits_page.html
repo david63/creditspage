@@ -39,6 +39,9 @@
 							{% if CP_ROLE %}
 								({{ author.ROLE }})
 							{% endif %}
+							{% if author.EMAIL and CP_EMAIL or author.HOMEPAGE and CP_HOMEPAGE %}
+								<br>
+							{% endif %}
 							{% if author.HOMEPAGE and CP_HOMEPAGE %}
 								<a href="{{ author.HOMEPAGE }}">{{ lang('AUTHOR_HOMEPAGE') }}</a>
 							{% endif %}

@@ -35,7 +35,7 @@ class version_2_1_0 extends migration
 			array('module.add', array(
 				'acp', 'CREDITS_PAGE', array(
 					'module_basename'	=> '\david63\creditspage\acp\acp_creditspage_module',
-					'modes'				=> array('settings', 'manage'),
+					'modes'				=> array('manage', 'settings'),
 				),
 			)),
 		);

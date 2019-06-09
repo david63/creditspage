@@ -45,7 +45,7 @@ class admin_controller implements admin_interface
 	protected $db;
 
 	/** @var \david63\creditspage\core\functions */
-	protected $creditspage;
+	protected $functions;
 
 	/** @var string custom constants */
 	protected $cpconstants;

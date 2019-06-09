@@ -60,6 +60,11 @@ class functions
 	{
 		$extension_name = substr($this->namespace, 0, -(strlen($this->namespace) - strrpos($this->namespace, '\\')));
 
+		if ($mode == 'php')
+		{
+			$extension_name = str_replace('\\', '/', $extension_name);
+		}
+
 		if ($mode == 'twig')
 		{
 			$extension_name = str_replace('\\', '_', $extension_name);

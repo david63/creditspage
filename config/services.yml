@@ -6,6 +6,7 @@ services:
         class: david63\creditspage\event\listener
         arguments:
             - '@config'
+            - '@user'			
             - '@auth'
             - '@template'
             - '@controller.helper'
