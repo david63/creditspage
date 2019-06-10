@@ -58,16 +58,19 @@ class functions
 	*/
 	public function get_ext_namespace($mode = 'php')
 	{
+		// Let's extract the extension name from the namespace
 		$extension_name = substr($this->namespace, 0, -(strlen($this->namespace) - strrpos($this->namespace, '\\')));
 
-		if ($mode == 'php')
+		// Now format the extension name
+		switch ($mode)
 		{
-			$extension_name = str_replace('\\', '/', $extension_name);
-		}
+			case 'php':
+				$extension_name = str_replace('\\', '/', $extension_name);
+			break;
 
-		if ($mode == 'twig')
-		{
-			$extension_name = str_replace('\\', '_', $extension_name);
+			case 'twig':
+				$extension_name = str_replace('\\', '_', $extension_name);
+			break;
 		}
 
 		return $extension_name;
