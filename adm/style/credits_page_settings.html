@@ -17,7 +17,7 @@
 			<div class="table-body">
 				{% for row in credit_row %}
 					{% if row.S_ROW_COUNT is even %}<div class="table-row1">{% else %}<div class="table-row2">{% endif %}
-						<div class="table-body-cell-bold pointer showkey" key="{{ row.META_KEY }}">{{ row.DISPLAY_NAME }}</div>
+						<div class="table-body-cell pointer showkey" key="{{ row.META_KEY }}">{{ row.DISPLAY_NAME }}</div>
 
 						<div class="table-body-cell-centre">
 							<div class="checkbox">
@@ -98,5 +98,5 @@
 	</fieldset>
 </form>
 
-{% INCLUDEJS '@' ~ NAMESPACE ~ '/show_hide.js' %}
+{% INCLUDEJS '@' ~ NAMESPACE ~ '/js/show_hide.js' %}
 {% include 'overall_footer.html' %}
