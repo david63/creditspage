@@ -146,7 +146,7 @@ class functions
 	*/
 	public function enabled_extension_meta_data()
 	{
-		$enabled_extension_meta_data = array();
+		$enabled_extension_meta_data = [];
 
 		foreach ($this->ext_manager->all_enabled() as $name => $location)
 		{
@@ -187,7 +187,7 @@ class functions
 	*/
 	public function get_credit_values()
 	{
-		$ext_data = array();
+		$ext_data = [];
 
 		// Get the credits values from the database
 		$sql = 'SELECT ext_name, ext_credits

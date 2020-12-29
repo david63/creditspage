@@ -96,8 +96,7 @@ class admin_controller implements admin_interface
 	public function display_settings()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_credits_page', $this->functions->get_ext_namespace());
-		$this->language->add_lang('acp_common', $this->functions->get_ext_namespace());
+		$this->language->add_lang(array('acp_credits_page', 'acp_common'), $this->functions->get_ext_namespace());
 
 		// Create a form key for preventing CSRF attacks
 		add_form_key($this->constants['form_key']);
@@ -196,7 +195,7 @@ class admin_controller implements admin_interface
 	protected function set_options()
 	{
 		$ext_vars	= $this->request->variable_names();
-		$ext_ary	= array();
+		$ext_ary	= [];
 		$opts_set	= 0;
 
 		// Need only the extension variables here

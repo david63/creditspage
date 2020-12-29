@@ -2,12 +2,16 @@
 
 Adds a link to a credits page showing extension credits.
 
-[![Build Status](https://travis-ci.com/david63/creditspage.svg?branch=master)](https://travis-ci.com/david63/creditspage)
+[![Build Status](https://github.com/david63/creditspage/workflows/Tests/badge.svg)](https://github.com/phpbb-extensions/david63/creditspage)
 [![License](https://poser.pugx.org/david63/creditspage/license)](https://packagist.org/packages/david63/creditspage)
 [![Latest Stable Version](https://poser.pugx.org/david63/creditspage/v/stable)](https://packagist.org/packages/david63/creditspage)
 [![Latest Unstable Version](https://poser.pugx.org/david63/creditspage/v/unstable)](https://packagist.org/packages/david63/creditspage)
 [![Total Downloads](https://poser.pugx.org/david63/creditspage/downloads)](https://packagist.org/packages/david63/creditspage)
+[![codecov](https://codecov.io/gh/david63/creditspage/branch/master/graph/badge.svg?token=D2500PgRex)](https://codecov.io/gh/david63/creditspage)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bc52f32fc14240ed8ccae062a40e177d)](https://www.codacy.com/manual/david63/creditspage?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=david63/creditspage&amp;utm_campaign=Badge_Grade)
+
+ [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.2.x-blue.svg)](https://shields.io/)
+ [![Compatible](https://img.shields.io/badge/compatible-phpBB:3.3.x-blue.svg)](https://shields.io/)
 
 ![Screenshot](credit_page_user.jpg)
 ![Screenshot](credits_page_admin.jpg)

@@ -49,6 +49,8 @@ services:
             - '@ext.manager'
             - '%tables%'
             - '@language'
+    _defaults:
+        public: true
 
 parameters:
     cpconstants:
